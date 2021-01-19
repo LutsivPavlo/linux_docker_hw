@@ -1,0 +1,15 @@
+# create network
+sudo docker network create my_network
+
+# start server container from Dockerfile
+sudo docker build -t netct:server .
+
+sudo docker container run --network my_network --name container_111 netct:server
+
+# run client container
+sudo docker container run --network my_network -it --detach 
+--name container_222 --link container_111 -v ~/docker/:/root alpine
+
+#start client
+sudo docker container exec -it container_22 /root/client.sh
+
